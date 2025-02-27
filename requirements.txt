@@ -1,2 +1,7 @@
+ultralytics
+torch
+torchvision
 opencv-python-headless
 numpy
+pandas
+streamlit
