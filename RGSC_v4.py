@@ -39,6 +39,7 @@ def upload_video():
 def upload_csv():
     return st.file_uploader("CSVアップロード", type='csv')
 
+
 # 動画を処理する関数（推論＋保存）
 def process_video(upload_file, model, conf, use_model, batch_size=8, input_size=640):
     if upload_file is not None:
@@ -126,6 +127,17 @@ def process_video(upload_file, model, conf, use_model, batch_size=8, input_size=
 
             progress_bar.progress(100)
             status_text.text("処理完了！")
+
+            # **📌 追加: ダウンロードボタン**
+            with open(filename, "rb") as f:
+                video_bytes = f.read()
+
+            st.download_button(
+                label="🔽 推論結果の動画をダウンロード",
+                data=video_bytes,
+                file_name=filename,
+                mime="video/mp4"
+            )
 
             # データフレーム作成
             leaf_data = pd.DataFrame({'frame': nums, 'leafs': leafs, 'leaf3': leaf3, 'leaf4': leaf4, 'leaf5': leaf5, 'leaf6': leaf6})
@@ -279,7 +291,6 @@ def merge_dataframes(df1, df2, join_type="outer"):
 
     # Streamlit で表示
     st.pyplot(fig)
-
 
 
 # メイン処理
