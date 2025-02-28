@@ -246,21 +246,32 @@ def merge_dataframes(df1, df2, join_type="outer"):
     
     # グラフを作成
     fig, ax = plt.subplots(figsize=(8, 6))  # fig, ax を明示的に取得
+    ax.set_facecolor('lightblue')
     #scatter = ax.scatter(merged_df["longitude"], merged_df["latitude"], 
     # c=merged_df["leaf_ave"], cmap='viridis', marker='o', edgecolor='k')
     
     # 0 ではないデータのマーカーは 'o'
-    mask_nonzero = merged_df["leaf_ave"] > 0
-    scatter = ax.scatter(merged_df["longitude"][mask_nonzero], merged_df["latitude"][mask_nonzero], 
-               c=merged_df["leaf_ave"][mask_nonzero], cmap='viridis', marker='o', edgecolor='k', vmin=3, vmax=6)
-
+    mask_3 = merged_df["leaf_ave"] > 2.5
+    scatter = ax.scatter(merged_df["longitude"][mask_3], merged_df["latitude"][mask_3], 
+               c='green', marker='o', edgecolor='k', vmin=3, vmax=6, label="leaf3")
+    mask_4 = merged_df["leaf_ave"] > 3.5
+    scatter = ax.scatter(merged_df["longitude"][mask_4], merged_df["latitude"][mask_4], 
+               c='yellow', marker='o', edgecolor='k', vmin=3, vmax=6, label="leaf4")
+    mask_5 = merged_df["leaf_ave"] > 4.5
+    scatter = ax.scatter(merged_df["longitude"][mask_5], merged_df["latitude"][mask_5], 
+               c='orange', marker='o', edgecolor='k', vmin=3, vmax=6, label="leaf5")
+    mask_6 = merged_df["leaf_ave"] > 5.5
+    scatter = ax.scatter(merged_df["longitude"][mask_6], merged_df["latitude"][mask_6], 
+               c='red', marker='o', edgecolor='k', vmin=3, vmax=6, label="leaf6")
+    
     # 0 のデータのマーカーは 'x'
-    mask_zero = merged_df["leaf_ave"] == 0
-    ax.scatter(merged_df["longitude"][mask_zero], merged_df["latitude"][mask_zero], 
-               c='black', marker='x', edgecolor='k')
+    #mask_zero = merged_df["leaf_ave"] == 0
+    #ax.scatter(merged_df["longitude"][mask_zero], merged_df["latitude"][mask_zero], 
+    #           c='black', marker='x', edgecolor='k')
 
     # カラーバーを追加
-    cbar = plt.colorbar(scatter, ax=ax, label="Leaf Stage")
+    #cbar = plt.colorbar(scatter, ax=ax, label="Leaf Stage")
+    ax.legend(title="Leaf Stage")
 
     ax.set_xlabel("Longitude")
     ax.set_ylabel("Latitude")
