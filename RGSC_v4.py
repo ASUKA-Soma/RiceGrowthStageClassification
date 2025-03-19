@@ -1,14 +1,16 @@
 import streamlit as st
+import os
+os.system('apt-get update && apt-get install -y libgl1')
 import cv2
 import numpy as np
 from ultralytics import YOLO
 import tempfile
 import pandas as pd
 import torch
-import os
 import plotly.express as px
 import io
 import matplotlib.pyplot as plt
+
 
 # モデルをロード
 def load_model():
